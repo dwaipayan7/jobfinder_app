@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:jobfinder_app/models/company_offer.dart';
+import 'package:jobfinder_app/models/job_category_model.dart';
 
 import '../common/search_bar.dart';
 
@@ -37,9 +39,130 @@ class _JobFinderHomePageState extends State<JobFinderHomePage> {
             children: [
               profileSection(),
               MySearchBar(),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                height: 50,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children:
+                      jobCategories
+                          .map(
+                            (e) => Container(
+                              margin: EdgeInsets.only(right: 10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xffF8F5F5),
+                                    Color(0xffEEE8F3),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  e.title,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                ),
+              ),
+
+              Container(
+                margin: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Company Offer",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "See All",
+                          style: TextStyle(
+                            color: Colors.black38,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              Container(
+                height: 190,
+                margin: EdgeInsets.only(top: 10, left: 10),
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children:
+                      companyOffer
+                          .map((e) => buildPopularCompaniesList(e))
+                          .toList(),
+                ),
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildPopularCompaniesList(CompanyOffer job) {
+    return Container(
+      width: 300,
+      margin: EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        color: job.color,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.network(job.logo, height: 40),
+                SizedBox(height: 10),
+                Text(
+                  job.jobTitle,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  job.location,
+                  style: TextStyle(
+                    color: Colors.white,
+                   fontSize: 15
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

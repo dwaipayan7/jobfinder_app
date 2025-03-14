@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:jobfinder_app/common/job_items.dart';
 import 'package:jobfinder_app/models/company_offer.dart';
 import 'package:jobfinder_app/models/job_category_model.dart';
+import 'package:jobfinder_app/models/job_opportunity_model.dart';
 
 import '../common/search_bar.dart';
 
@@ -77,8 +79,9 @@ class _JobFinderHomePageState extends State<JobFinderHomePage> {
                 ),
               ),
 
+              SizedBox(height: 20),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,12 +123,60 @@ class _JobFinderHomePageState extends State<JobFinderHomePage> {
                           .toList(),
                 ),
               ),
+
+              SizedBox(height: 20),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Job Opportunities",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "See All",
+                          style: TextStyle(
+                            color: Colors.black38,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              Container(
+                height: 225,
+                margin: EdgeInsets.only( left: 10, right: 20),
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children:
+                  jobOpportunities
+                      .map((e) => JobItems(job: e))
+                      .toList(),
+                ),
+              ),
+
             ],
           ),
         ),
       ),
     );
   }
+
+
 
   Widget buildPopularCompaniesList(CompanyOffer job) {
     return Container(
@@ -150,16 +201,49 @@ class _JobFinderHomePageState extends State<JobFinderHomePage> {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
                 Text(
                   job.location,
-                  style: TextStyle(
-                    color: Colors.white,
-                   fontSize: 15
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+
+                SizedBox(height: 10),
+
+                Row(
+                  children:
+                      job.jobTypes
+                          .map(
+                            (e) => Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 15,
+                              ),
+                              margin: EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(child: Text(e)),
+                            ),
+                          )
+                          .toList(),
                 ),
               ],
+            ),
+          ),
+
+          Positioned(
+            right: 1,
+            bottom: 1,
+            top: 1,
+            child: Container(
+              margin: EdgeInsets.only(top: 30, right: 20),
+              child: Text(
+                job.salary,
+                style: TextStyle(color: Colors.white, fontSize: 17),
+              ),
             ),
           ),
         ],

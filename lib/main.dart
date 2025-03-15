@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobfinder_app/pages/all_jobs.dart';
 import 'package:jobfinder_app/pages/job_finder_home_page.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: JobFinderHomePage(),
+      // home: AllJobs(),
     );
   }
 }

@@ -5,6 +5,8 @@ import 'package:jobfinder_app/common/job_items.dart';
 import 'package:jobfinder_app/models/company_offer.dart';
 import 'package:jobfinder_app/models/job_category_model.dart';
 import 'package:jobfinder_app/models/job_opportunity_model.dart';
+import 'package:jobfinder_app/pages/all_jobs.dart';
+import 'package:jobfinder_app/pages/profile_page.dart';
 
 import '../common/search_bar.dart';
 
@@ -142,12 +144,22 @@ class _JobFinderHomePageState extends State<JobFinderHomePage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          "See All",
-                          style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AllJobs(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "See All",
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
@@ -158,25 +170,20 @@ class _JobFinderHomePageState extends State<JobFinderHomePage> {
 
               Container(
                 height: 225,
-                margin: EdgeInsets.only( left: 10, right: 20),
+                margin: EdgeInsets.only(left: 10, right: 20),
                 child: ListView(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   children:
-                  jobOpportunities
-                      .map((e) => JobItems(job: e))
-                      .toList(),
+                      jobOpportunities.map((e) => JobItems(job: e)).toList(),
                 ),
               ),
-
             ],
           ),
         ),
       ),
     );
   }
-
-
 
   Widget buildPopularCompaniesList(CompanyOffer job) {
     return Container(
@@ -253,7 +260,12 @@ class _JobFinderHomePageState extends State<JobFinderHomePage> {
 
   Widget profileSection() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfilePage()),
+        );
+      },
       child: Container(
         margin: EdgeInsets.all(20),
         padding: EdgeInsets.all(12), // Added padding for better spacing

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobfinder_app/models/job_opportunity_model.dart';
+import 'package:jobfinder_app/pages/job_details_page.dart';
 
 class JobItems extends StatelessWidget {
   final JobOpportunity job;
@@ -8,7 +9,12 @@ class JobItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => JobDetailsPage(job: job)),
+        );
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 7, top: 7),
         padding: EdgeInsets.all(15),
